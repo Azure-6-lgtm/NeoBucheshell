@@ -29,7 +29,7 @@ Basic commands
 ========================= */
 
 pub fn aboutbsh() {
-    let fun = "
+    let logo = "
             XX
         XXXX
      XXXX   
@@ -41,13 +41,13 @@ XX
      XXXX   
         XXXX
            XX";
-    println!("{}", fun);
+    println!("{}", logo);
     println!("NeoBucheshell is the remaster of Bucheshell");
     println!("It aims to be faster, well-optimized and more friendly");
 }
 
 pub fn bshversion() {
-    println!("NeoBucheshell version 0.2.0 release");
+    println!("NeoBucheshell version 1.0.0 release");
 }
 
 pub fn help() {

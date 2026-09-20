@@ -240,7 +240,7 @@ pub fn decipher_args(args: Vec<String>) {
     match args[1].as_str() {
         "-rc" => {
             if args.len() >= 3 {
-                // buchesh -rc apt install bucheshell
+                // buchesh -rc apt install NeoBucheshell
                 let cmdtorun = args[2].clone();
                 let cmdtorunargs: Vec<String> = {
                     if args.len() >= 4 {
@@ -271,7 +271,7 @@ pub fn decipher_args(args: Vec<String>) {
             std::process::exit(0);
         }
         "-ver" => {
-            println!("NeoBucheshell Version 0.2.0");
+            println!("NeoBucheshell Version 1.0.0");
             std::process::exit(0)
         }
         _ => {}
