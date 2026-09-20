@@ -2,9 +2,8 @@ use crate::strap::repl;
 use std::env;
 use std::fs;
 use std::fs::File;
-use std::path::Path;
 use std::path::PathBuf;
-use sysinfo::{Components, Disks, System};
+use sysinfo::System;
 
 /* =========================
 Helper: expand ~
@@ -189,7 +188,7 @@ pub fn which(args: &[&str]) {
         eprintln!("Missing command");
         return;
     }
-    let path = match env::var("PATH") {
+    let _path = match env::var("PATH") {
         _ => {
             todo!()
         }

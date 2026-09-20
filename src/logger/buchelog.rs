@@ -3,7 +3,6 @@ use dirs::home_dir;
 use log::{error, info, warn};
 use simplelog::*;
 use std::fs::File;
-use std::path::PathBuf;
 
 pub fn init_logger() {
     // Force Rust to use local timezone (important for Termux/Android)
