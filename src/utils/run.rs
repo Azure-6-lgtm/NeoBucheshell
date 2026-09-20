@@ -47,7 +47,7 @@ XX
 }
 
 pub fn bshversion() {
-    println!("NeoBucheshell version 0.1.0 release");
+    println!("NeoBucheshell version 0.2.0 release");
 }
 
 pub fn help() {

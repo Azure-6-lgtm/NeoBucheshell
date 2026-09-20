@@ -271,7 +271,7 @@ pub fn decipher_args(args: Vec<String>) {
             std::process::exit(0);
         }
         "-ver" => {
-            println!("NeoBucheshell Version 0.1.0");
+            println!("NeoBucheshell Version 0.2.0");
             std::process::exit(0)
         }
         _ => {}
