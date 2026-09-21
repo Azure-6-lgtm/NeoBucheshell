@@ -4,6 +4,7 @@ use std::fs;
 use std::fs::File;
 use std::path::PathBuf;
 use sysinfo::System;
+use std::path::Path;
 
 /* =========================
 Helper: expand ~
@@ -188,12 +189,29 @@ pub fn which(args: &[&str]) {
         eprintln!("Missing command");
         return;
     }
-    let _path = match env::var("PATH") {
-        _ => {
-            todo!()
-        }
+    let path = match env::var("PATH") {
+            Ok(path) => path,
+            Err(_) => {
+                eprintln!("PATH ENVIORMENT VARIABLE NOT SET");
+                return;
+            } 
     };
+    for command in args {
+        let mut found = false;
+        for directory in path.split(':') {
+            let candinate = Path::new(directory).join(command);
+            if candinate.is_file() {
+                println!("{}",candinate.display());
+                found = true;
+                break;
+            }
+        }
+        if !found {
+            eprintln!("{} Command not found", command);
+        }
+    }
 }
+
 
 use std::process::{Command, Stdio};
 
