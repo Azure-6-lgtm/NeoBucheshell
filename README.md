@@ -27,7 +27,7 @@ See [Installation](docs/installation.md).
 
 ## License
 NeoBucheshell is licensed under MIT License
-[License](LICENSE.md)
+[License](LICENSE)
 
 ## Roadmap
 - REPL improvements
