@@ -21,8 +21,13 @@ See [Installation](docs/installation.md).
 ## Documentation
 
 - [Commands](docs/commands.md)
+- [Installation](docs/installation.md)
 - [Aliases](docs/aliases.md)
 - [Configuration](docs/configuration.md)
+
+## License
+NeoBucheshell is licensed under MIT License
+[License](LICENSE.md)
 
 ## Roadmap
 - REPL improvements
