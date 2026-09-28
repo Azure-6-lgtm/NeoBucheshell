@@ -32,3 +32,5 @@ There also some special commands seperate from NeoBucheshell's coreutils.
 - **about**: Gives a brief info about the shell
 - **ver**: Displays the shell version
 - **help**: Displays this file to help beginners learn
+
+For more knowledge, Nextly see [Configuration](configuration.md)
