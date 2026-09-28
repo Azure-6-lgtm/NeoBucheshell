@@ -26,7 +26,7 @@ See [Getting Started](docs/getting_started.md)
 
 - [Commands](docs/commands.md)
 - [Installation](docs/installation.md)
-- [Aliases](docs/aliases.md)
+- [Getting Started](docs/getting_started.md)
 - [Configuration](docs/configuration.md)
 
 ## License
@@ -35,5 +35,7 @@ NeoBucheshell is licensed under MIT License
 
 ## Roadmap
 - REPL improvements
-- Improved Parser
+- Make -rf arg functional
+- More Prompt variables
+- More Configuration
 
