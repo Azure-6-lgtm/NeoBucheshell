@@ -2,7 +2,7 @@
 
 Configuration is an important aspect of NeoBucheshell.<br>
 By default, The config file is **~/.neobucherc** <br>
-**Note:**As of now,You cannot configure on windows.
+**Note:** As of now,You cannot configure on windows.
 
 ## Configuring the prompt
 
