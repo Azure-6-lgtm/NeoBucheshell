@@ -18,6 +18,10 @@ NeoBucheshell will be part of my upcoming coreutils alternative
 
 See [Installation](docs/installation.md).
 
+## Getting started
+
+See [Getting Started](docs/getting_started.md)
+
 ## Documentation
 
 - [Commands](docs/commands.md)
