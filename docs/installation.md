@@ -23,3 +23,5 @@ git clone https://www.github.com/Azure-6-lgtm/NeoBucheshell
   cargo run
 ```
 - Note: You can copy the builded binary into a place in your PATH to make it work systemwide
+
+For more knowledge, Nextly see [Getting started](getting_started.md)
