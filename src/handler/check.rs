@@ -86,13 +86,13 @@ pub fn checkcmd(input_command: &str) {
     let userpath = format!("{}{}", USERPATH, cmd);
     let shellpath = format!("{}{}", SHELLPATH, cmd);
 
-    let mut command_to_run = if Path::new(&termuxpath).exists() && !checkforbuiltin(cmd) {
+    let mut command_to_run = if Path::new(&termuxpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", termuxpath));
         Command::new(&termuxpath)
-    } else if Path::new(&userpath).exists() && !checkforbuiltin(cmd) {
+    } else if Path::new(&userpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", userpath));
         Command::new(&userpath)
-    } else if Path::new(&shellpath).exists() && !checkforbuiltin(cmd) {
+    } else if Path::new(&shellpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", shellpath));
         Command::new(&shellpath)
     } else {
@@ -201,7 +201,7 @@ pub fn checkutils(utilcmd: &str, cmdargs: &Vec<&str>) {
         }
         _ => {
             log_error("Unknown command");
-            println!("{}", "Command is not available!".yellow());
+            println!("{}", "NeoBucheshell: Command is not available!".yellow());
         }
     };
 }
@@ -252,7 +252,7 @@ pub fn decipher_args(args: Vec<String>) {
                 Command::new(cmdtorun)
                     .args(cmdtorunargs)
                     .status()
-                    .expect("Failed to run command");
+                    .expect("NeoBucheshell: Failed to run command");
                 std::process::exit(0);
             }
         }
