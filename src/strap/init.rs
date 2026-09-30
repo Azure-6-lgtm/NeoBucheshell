@@ -7,26 +7,35 @@ Be careful while editing this
 //Import necessary crates and utils
 use crate::handler::check;
 use crate::logger::buchelog::log_info;
+use chrono::Local;
 use rustyline::DefaultEditor;
 use rustyline::error::ReadlineError;
 use std::env;
 use std::fs;
 use std::io::{self, Write};
 
-fn get_display_dir() -> String { // Gets your current directory and returns it in the form of string
+fn get_shell_version() -> String {
+    //I fucking made this because i had it in a fucking dream i fucking saw yesterday
+    String::from("1.1.0")
+}
+
+fn get_display_dir() -> String {
+    // Gets your current directory and returns it in the form of string
     let dir = env::current_dir().unwrap();
-    let home = env::var("HOME").unwrap(); 
+    let home = env::var("HOME").unwrap();
 
     let path = dir.display().to_string();
 
-    if path.starts_with(&home) { // replaces the systems homen with "~" . Necessary on android platforms
+    if path.starts_with(&home) {
+        // replaces the systems homen with "~" . Necessary on android platforms
         path.replacen(&home, "~", 1)
     } else {
         path
     }
 }
 
-fn get_config_file() -> String { //Although we can harcode the config file to "~/.neobucherc" . This is necessary as std::fs does not fucking know what is "~"
+fn get_config_file() -> String {
+    //Although we can harcode the config file to "~/.neobucherc" . This is necessary as std::fs does not fucking know what is "~"
     let home = env::var("HOME").unwrap();
     format!("{}/.neobucherc", home) //This used to be .bucherc
 }
@@ -54,10 +63,18 @@ fn render_prompt(prompt: &str) -> String {
         .replace("$USER", &get_user())
         .replace("$HOST", &get_host())
         .replace("$PWD", &get_display_dir())
-        .replace("$TIME", &get_time())
+        .replace("$TIME24", &get_time24())
+        .replace("$TIME12", &get_time12())
+        .replace("$SHELLVERSION", &get_shell_version())
+        .replace("$NEWLINE", "\n")
 }
 
-fn get_user() -> String { // It gets your username by checking the enviorment variable
+fn get_time12() -> String {
+    Local::now().format("%I:%M:%S %p").to_string()
+}
+
+fn get_user() -> String {
+    // It gets your username by checking the enviorment variable
     std::env::var("USER")
         .or_else(|_| std::env::var("USERNAME"))
         .unwrap_or_else(|_| "unknown".to_string())
@@ -73,12 +90,10 @@ fn get_host() -> String {
         .to_string()
 }
 
-use chrono::Local; // Chrono here because i felt like it
-
-fn get_time() -> String {
-    Local::now().format("%H:%M").to_string()
+fn get_time24() -> String {
+    Local::now().format("%H:%M:%S").to_string()
 }
-
+// I have lost all of my fucking sanity doing this shit but i amnhappy -> Azure 2026 Sep 29
 pub fn init() {
     /*
         This prints the prompt and actually takes input and creates command histroy
@@ -109,6 +124,6 @@ pub fn init() {
         let input_command = input_command.trim();
         io::stdout().flush().unwrap();
         check::checkcmd(&input_command); // passed to handler
-        log_info("Command passed to handler"); 
+        log_info("Command passed to handler");
     }
 }
