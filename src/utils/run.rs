@@ -2,9 +2,10 @@ use crate::strap::repl;
 use std::env;
 use std::fs;
 use std::fs::File;
+use std::path::Path;
 use std::path::PathBuf;
 use sysinfo::System;
-use std::path::Path;
+use crate::logger::buchelog::{log_error, log_info, log_warn};
 
 /* =========================
 Helper: expand ~
@@ -30,29 +31,20 @@ Basic commands
 ========================= */
 
 pub fn aboutbsh() {
-    let logo = "
-            XX
-        XXXX
-     XXXX   
-   XXX      
- XXX        
-XX          
- XXX        
-   XXX      
-     XXXX   
-        XXXX
-           XX";
-    println!("{}", logo);
+    println!("About");
+    println!("-----");
     println!("NeoBucheshell is the remaster of Bucheshell");
     println!("It aims to be faster, well-optimized and more friendly");
 }
 
 pub fn bshversion() {
-    println!("NeoBucheshell version 1.0.0 release");
+    println!("NeoBucheshell version 1.1.0 release");
 }
 
 pub fn help() {
-    println!("Built in commands -> cd, about, ver, touch, mkdir, rmdir, rm, ls, export,pipe,channel,sysinfo");
+    println!(
+        "Built in commands -> cd, about, ver, touch, mkdir, rmdir, rm, ls, export,pipe,channel,sysinfo"
+    );
     println!("You can set custom aliases in \"~/.neobucherc\"");
     println!("You can also set custom prompt in config file")
 }
@@ -180,28 +172,28 @@ pub fn channel(args: &[&str]) {
         //eprintln!("DEBUG: launching channel");
         repl::launch_channel();
     } else {
-        eprintln!("Unknown command: {}", args[0]);
+        eprintln!("NeoBucheshwll: Unknown command: {}", args[0]);
     }
 }
 
 pub fn which(args: &[&str]) {
     if args.is_empty() {
-        eprintln!("Missing command");
+        eprintln!("which: Missing command");
         return;
     }
     let path = match env::var("PATH") {
-            Ok(path) => path,
-            Err(_) => {
-                eprintln!("PATH ENVIORMENT VARIABLE NOT SET");
-                return;
-            } 
+        Ok(path) => path,
+        Err(_) => {
+            eprintln!("which: PATH ENVIORMENT VARIABLE NOT SET");
+            return;
+        }
     };
     for command in args {
         let mut found = false;
         for directory in path.split(':') {
             let candinate = Path::new(directory).join(command);
             if candinate.is_file() {
-                println!("{}",candinate.display());
+                println!("{}", candinate.display());
                 found = true;
                 break;
             }
@@ -211,7 +203,6 @@ pub fn which(args: &[&str]) {
         }
     }
 }
-
 
 use std::process::{Command, Stdio};
 

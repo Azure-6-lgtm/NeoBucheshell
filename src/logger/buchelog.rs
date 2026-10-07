@@ -15,7 +15,6 @@ pub fn init_logger() {
     // Overwrite file every session
     let log_file = File::create(&log_path).expect("Could not create log file");
 
-    // File-only logging, ignore rustyline debug
     let config = ConfigBuilder::new()
         .set_time_level(LevelFilter::Info) // include timestamp in log macros
         .build();

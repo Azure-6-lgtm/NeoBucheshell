@@ -11,6 +11,8 @@ use std::process::{Command, Stdio};
 const USERPATH: &str = "/usr/bin/";
 const TERMUXPATH: &str = "/data/data/com.termux/files/usr/bin/";
 const SHELLPATH: &str = "/bin/";
+const CARGOPATH: &str = "/home/.cargo/bin/";
+const TERMUXCARGOPATH: &str = "/data/data/com.termux/files/home/.cargo/bin/";
 
 pub fn checkcmd(input_command: &str) {
     if input_command.is_empty() {
@@ -50,6 +52,7 @@ pub fn checkcmd(input_command: &str) {
 
     if cmd == ".." && cmdargs.is_empty() {
         std::env::set_current_dir("..").unwrap();
+        // do not remove this although it may appear useless
         return;
     }
 
@@ -82,6 +85,12 @@ pub fn checkcmd(input_command: &str) {
     // Path resolution
     // -----------------
 
+    if checkforbuiltin(cmd) {
+        log_info("Checking utilis");
+        checkutils(cmd, &cmdargs);
+        return;
+    }
+
     let termuxpath = format!("{}{}", TERMUXPATH, cmd);
     let userpath = format!("{}{}", USERPATH, cmd);
     let shellpath = format!("{}{}", SHELLPATH, cmd);
@@ -95,7 +104,7 @@ pub fn checkcmd(input_command: &str) {
     } else if Path::new(&shellpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", shellpath));
         Command::new(&shellpath)
-    } else {
+    }  else {
         checkutils(cmd, &cmdargs);
         log_warn("Passing unknown command to utils checker");
         return;
@@ -122,7 +131,15 @@ pub fn checkcmd(input_command: &str) {
     // -----------------
     // Execute
     // -----------------
-    command_to_run.status().expect("Bucheshell failed to run");
+    match command_to_run.status() {
+        Ok(something) => { 
+        log_info(&format!("Command ran successfully with status: {}", something))
+         },
+         
+        Err(e) => {
+            log_error(&format!("Command failed with status {}", e));
+        },
+    };
 }
 
 // -----------------
@@ -202,6 +219,7 @@ pub fn checkutils(utilcmd: &str, cmdargs: &Vec<&str>) {
         _ => {
             log_error("Unknown command");
             println!("{}", "NeoBucheshell: Command is not available!".yellow());
+            return;
         }
     };
 }
@@ -224,6 +242,11 @@ fn checkforbuiltin(cmd: &str) -> bool {
             | "sysinfo"
             | "ps"
             | "channel"
+            | "which"
+            | "ver"
+            | "help"
+            | "about"
+            | "exit"
     )
 }
 
@@ -271,7 +294,7 @@ pub fn decipher_args(args: Vec<String>) {
             std::process::exit(0);
         }
         "-ver" => {
-            println!("NeoBucheshell Version 1.0.0");
+            println!("NeoBucheshell Version 1.1.0");
             std::process::exit(0)
         }
         _ => {}

@@ -1,9 +1,15 @@
+use std::env;
 use std::fs::{self, OpenOptions};
 use std::io::Write;
-use std::env;
 
 fn get_alias_file() -> String {
-    let home = env::var("HOME").unwrap();
+    let home = match env::var("HOME") {
+        Ok(contents) => contents,
+        Err(e) => {
+            println!("NeoBucheshell: {e}");
+            return String::from("/home/root");
+        }
+    };
     format!("{}/.neobucherc", home)
 }
 
