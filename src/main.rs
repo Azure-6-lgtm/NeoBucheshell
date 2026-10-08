@@ -42,5 +42,6 @@ fn main() {
     buchelog::log_info("NeoBucheshell started succesfully");
     buchelog::log_warn("This is a warning example");
     buchelog::log_error("This is an error example");
+    buchelog::log_info("Visit the NeoBucheshell repo : https://www.github.com/Azure-6-lgtm/NeoBucheshell");
     strap::init::init(); // Starts the actual shell
 }

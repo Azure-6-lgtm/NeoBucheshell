@@ -5,7 +5,6 @@ use std::fs::File;
 use std::path::Path;
 use std::path::PathBuf;
 use sysinfo::System;
-use crate::logger::buchelog::{log_error, log_info, log_warn};
 
 /* =========================
 Helper: expand ~

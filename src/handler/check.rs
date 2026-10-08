@@ -94,6 +94,8 @@ pub fn checkcmd(input_command: &str) {
     let termuxpath = format!("{}{}", TERMUXPATH, cmd);
     let userpath = format!("{}{}", USERPATH, cmd);
     let shellpath = format!("{}{}", SHELLPATH, cmd);
+    let cargopath = format!("{}{}", CARGOPATH, cmd);
+    let termuxcargopath = format!("{}{}", TERMUXCARGOPATH, cmd);
 
     let mut command_to_run = if Path::new(&termuxpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", termuxpath));
@@ -104,7 +106,14 @@ pub fn checkcmd(input_command: &str) {
     } else if Path::new(&shellpath).is_file() && !checkforbuiltin(cmd) {
         log_info(&format!("Ran command successfully {}", shellpath));
         Command::new(&shellpath)
-    }  else {
+    } else if Path::new(&cargopath).is_file() && !checkforbuiltin(cmd) {
+        log_info(&format!("Ran command successfully {}", shellpath));
+        Command::new(&cargopath)
+    } else if Path::new(&termuxcargopath).is_file() && !checkforbuiltin(cmd) {
+		log_info(&format!("Ran command successfilly {}", shellpath));
+		Command::new(&termuxcargopath)
+    }
+    else {
         checkutils(cmd, &cmdargs);
         log_warn("Passing unknown command to utils checker");
         return;

@@ -2,7 +2,7 @@
 
 Configuration is an important aspect of NeoBucheshell.<br>
 By default, The config file is **~/.neobucherc** <br>
-**Note:** As of now,You cannot configure on windows.
+**Note:** As of V1.1.0, Windows configuration support is limited but possible
 
 ## Configuring the prompt
 
@@ -12,7 +12,11 @@ They Include ->
 - **$USER**: This variable fetches the username of the user running the shell
 - **$HOST**: This variable fetches the hostname of the device running the shell
 - **$PWD**:  This variable fetches the current directory
-- **$TIME**: This variable fetches the local time of the device
+- **$TIME24**: This variable fetches the local time of the device in 24 hour format
+- **$TIME12**: This variable fetches the local time of the device in 12 hour format
+- **$NEWLINE**: This variable adds a newline in the prompt
+- **$SHELLVERSION**: This variable fetches the version of NeoBucheshell
+- **$OS**: This variable fetches the Operating system
 
 ## Prompt Configuration Syntax
 

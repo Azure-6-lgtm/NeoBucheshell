@@ -14,6 +14,26 @@ use std::env;
 use std::fs;
 use std::io::{self, Write};
 
+#[cfg(target_os = "windows")]
+fn print_os() -> String {
+    String::from("Windows NT")
+}
+
+#[cfg(target_os = "linux")]
+fn print_os() -> String {
+    String::from("Linux")
+}
+
+#[cfg(target_os = "android")]
+fn print_os() -> String {
+    String::from("Android")
+}
+
+#[cfg(target_os = "macos")]
+fn print_os() -> String {
+    String::from("MacOs")
+}
+
 fn get_shell_version() -> String {
     //I fucking made this because i had it in a fucking dream i fucking saw yesterday
     String::from("1.1.0")
@@ -67,6 +87,7 @@ fn render_prompt(prompt: &str) -> String {
         .replace("$TIME12", &get_time12())
         .replace("$SHELLVERSION", &get_shell_version())
         .replace("$NEWLINE", "\n")
+        .replace("$OS", &print_os())
 }
 
 fn get_time12() -> String {
@@ -106,7 +127,7 @@ pub fn init() {
         let prompt = render_prompt(&prompt_template);
         let input_command = match rl.readline(&prompt) {
             Ok(input) => {
-                rl.add_history_entry(input.as_str());
+                let _ = rl.add_history_entry(input.as_str());
                 input
             }
             Err(ReadlineError::Interrupted) => {
